@@ -1,0 +1,8 @@
+course\controller\AuthController.class
+course\dao\CommentRepositiory.class
+course\domain\Post.class
+course\Application.class
+course\domain\User.class
+course\dao\UserRepository.class
+course\dao\PostRepositiory.class
+course\domain\Comment.class
