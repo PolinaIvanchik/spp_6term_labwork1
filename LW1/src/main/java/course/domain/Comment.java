@@ -7,6 +7,9 @@ import javax.persistence.*;
  */
 @Entity
 public class Comment {
+    public Comment() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")

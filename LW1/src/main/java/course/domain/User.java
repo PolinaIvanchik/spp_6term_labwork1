@@ -13,7 +13,10 @@ public class User {
     @Column(name = "ID")
     private long id;
 
-    @Column(name = "name")
+    public User() {
+    }
+
+    @Column(name = "name", unique = true)
     private String name;
 
 

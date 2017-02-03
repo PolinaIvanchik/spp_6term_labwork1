@@ -4,6 +4,7 @@ import course.dao.UserRepository;
 import course.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -25,24 +26,24 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String createUser(HttpSession httpSession, @RequestBody String name) {
-        userRepository.save(new User(name));
-        httpSession.setAttribute("currentUserName", name);
-        return "ok";
+    public @ResponseBody int createUser(HttpSession httpSession, @RequestBody String name) {
+        if (userRepository.findByName(name) == null) {
+            userRepository.save(new User(name));
+            httpSession.setAttribute("currentUserName", name);
+            return 200;
+        } else {
+            return 422;
+        }
+
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String loginUser(HttpSession httpSession, @RequestBody String name) {
+    public @ResponseBody int loginUser(HttpSession httpSession, @RequestBody String name) {
         if (userRepository.findByName(name) != null) {
             httpSession.setAttribute("currentUserName", name);
-            return "ok";
+            return 200;
         } else {
-            return "error";
+            return 404;
         }
-    }
-
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public String log() {
-        return "ok";
     }
 }

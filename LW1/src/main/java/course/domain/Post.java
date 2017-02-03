@@ -21,6 +21,9 @@ public class Post {
     @Column(name = "author_name")
     private String authorName;
 
+    public Post() {
+    }
+
     public long getId() {
         return id;
     }

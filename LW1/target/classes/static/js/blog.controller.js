@@ -3,17 +3,35 @@
  */
 var App = angular.module('blog.controller', []);
 
-App.controller('BlogController',['$scope','$http','$location', function ($scope, $http) {
+App.controller('BlogController',['$scope','$http', function ($scope, $http) {
     var vm = $scope;
-    vm.siteByCreation = [];
+    vm.posts = [];
+    vm.user = null;
+    console.log(123);
+    getPosts();
 
-    $http.get('http://localhost:8080/site/sortedByCreate/' + $scope.maxByCreation).success(function (data) {
-        vm.siteByCreation = data;
+    $http.get('http://localhost:8080/user/current').then(function (response) {
+        vm.user = response.data;
+        console.log(response);
     });
-    $http.get('http://localhost:8080/site/sortedByAlph/' + $scope.maxByAlph).success(function (data) {
-        vm.siteByAlhp = data;
-    });
-    $http.get('http://localhost:8080/user/list/').success(function (data) {
-        $scope.users = data;
-    });
+
+    vm.addPost = function () {
+        let post = {
+            title:  document.getElementById("newPostTitle").value,
+            text: document.getElementById("newPostBody").value,
+            authorName: vm.user
+        };
+        if(vm.user) {
+            $http.post('http://localhost:8080/add/post', post).then(function (response) {
+                getPosts();
+            });
+        }
+    };
+
+    function getPosts() {
+        $http.get('http://localhost:8080/get/post').then(function (response) {
+            vm.posts = response.data;
+            console.log(response);
+        });
+    }
 }]);
