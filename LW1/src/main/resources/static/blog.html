@@ -13,24 +13,38 @@
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <body ng-app="blog.controller">
-<div class="container" ng-controller="BlogController">
+<button class="btn btn-info" type="button" data-toggle="modal" data-target="#myModal" style="width: 96%; margin-bottom: 30px; margin-top: 10px; margin-left: 2%">add post</button>
+<div ng-controller="BlogController" style="margin-right: 30px; margin-left: 30px">
     <div ng-repeat="post in posts">
         <div class="panel panel-default">
-            <div class="panel-heading"><h4>{{post.post.title}}</h4></div>
+            <div class="panel-heading">
+                <b>{{post.post.title}}</b>
+            </div>
             <div class="panel-body">
                 {{post.post.text}}
                 {{post.post.id}}
             </div>
-            <div class="panel-footer" ng-repeat="comment in post.comments"><h4>
-                comments suka
-                <span class="group-btn">
+
+            <div class="panel-footer" ng-if="user !== null">
+                Comments
+                <ul ng-if="post.comments == null">
+                    make first comment
+                </ul>
+                <li ng-repeat="comment in post.comments">
+                    <b>{{comment.authorName}}: </b> {{comment.text}}
+                </li>
+            <span class="row">
+                <div class="col-md-10">
                     <input type="text" id="newComment" class="form-control input-sm chat-input" placeholder="comment"/>
-                    <button class="btn btn-success" type="button" data-dismiss="modal" ng-click="addComment(post.post.id)">Send</button>
-                </span>
-            </h4></div>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-success" type="button" data-dismiss="modal" ng-click="addComment(post.post.id)" style="height: 30px">Send</button>
+                </div>
+            </span>
+            </div>
         </div>
     </div>
-    <button class="btn btn-info" type="button" data-toggle="modal" data-target="#myModal" style="position: inherit; right: 10px; top: 10px;">add post</button>
+    <br>
     <div id="myModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -38,17 +52,15 @@
                     <h4 class="modal-title">New post from {{user}}</h4>
                 </div>
                 <div class="modal-body">
-                    title
                     <input type="text" id="newPostTitle" class="form-control input-sm chat-input" placeholder="post title"/>
                     <br>
                     <textarea id="newPostBody" placeholder="post body" warp="soft" rows="5" style="width: 100%; border-radius: 5px" maxlength="100%"></textarea>
                 </div>
-                    <div class="modal-footer">
-                        <span class="group-btn">
-                            <button class="btn btn-success" type="button" data-dismiss="modal" ng-click="addPost()">Сохранить</button>
-                            <button class="btn btn-error" type="button" data-dismiss="modal">Закрыть</button>
-                        </span>
-                    </div>
+                <div class="modal-footer">
+                    <span class="group-btn">
+                        <button class="btn btn-success" type="button" data-dismiss="modal" ng-click="addPost()">Сохранить</button>
+                        <button class="btn btn-error" type="button" data-dismiss="modal">Закрыть</button>
+                    </span>
                 </div>
             </div>
         </div>

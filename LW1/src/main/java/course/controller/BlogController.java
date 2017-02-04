@@ -9,6 +9,7 @@ import course.domain.Post;
 import course.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -61,7 +64,7 @@ public class BlogController {
     }
 
     @RequestMapping(value = "/user/current", method = RequestMethod.GET)
-    public @ResponseBody String getCurrentUser(HttpSession httpSession) {
-        return httpSession.getAttribute("currentUserName").toString();
+    public @ResponseBody Collection getCurrentUser(HttpSession httpSession) {
+        return Collections.singletonList(httpSession.getAttribute("currentUserName").toString());
     }
 }
