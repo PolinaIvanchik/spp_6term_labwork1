@@ -2,14 +2,11 @@ package course.controller;
 
 import course.dao.CommentRepository;
 import course.dao.PostRepository;
-import course.dao.UserRepository;
 import course.domain.Comment;
 import course.domain.FullPostDTO;
 import course.domain.Post;
-import course.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
